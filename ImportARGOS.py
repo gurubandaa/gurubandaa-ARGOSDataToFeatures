@@ -13,9 +13,17 @@
 # Import modules
 import sys, os, arcpy
 
+# Allow arcpy to overwrite output
+arcpy.env.overwriteOutput = True
+
 # Set input variables (Hard-wired)
 inputFile = '../Data/ARGOSData/1997dg.txt'
+outputSR = arcpy.SpatialReference(54002)
 outputFC = '../Scratch/ARGOStrack.shp'
+
+# Create an empty feature class to which we will add features
+outPath,outName = os.path.split(outputFC)
+arcpy.CreateFeatureclass_management(outPath,outName,"POINT","","","",outputSR)
 
 ## Construct a while loop to iterate through all lines in the datafile
 # Open the ARGOS data file for reading
